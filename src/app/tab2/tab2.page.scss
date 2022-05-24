@@ -1,0 +1,65 @@
+
+.play {
+  text-align: center;
+}
+
+.board {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.game_row {
+  display: flex;
+    flex-direction: row;
+}
+
+.game_board {
+  display: inline-block;
+
+  &_cell {
+    background-color: lightblue;
+    border: 1px solid gray;
+    width: 1.5em;
+    height: 1.5em;
+    font-size: large;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
+
+  &_cell--col-reference {
+   border: none;
+   background-color: white;
+  }
+
+  &_cell--clean:hover {
+    background-color: lightgreen;
+  }
+
+
+  &_cell--hit::before {
+    content: "💥";
+  }
+
+  &_cell--fail::before {
+    content: "🌊";
+  }
+
+  &_cell--destroyed::before {
+    content: "💀";
+  }
+
+}
+
+.game_board_cell {
+  border: 1px solid black;
+  margin: 1px;
+  padding: 1px;
+}
+
+.game-over{
+  font-size: large;
+  color: red;
+  margin-bottom: 15px;
+}

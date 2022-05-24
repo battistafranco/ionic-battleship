@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 2
+      Play Game!
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,9 +9,90 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
+      <ion-title size="large">Play Game!</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 2 page"></app-explore-container>
+  <div class="board">
+    <section *ngIf="gameboard" class="game_board">
+      <div class="game_row">
+        <div class="game_board_cell game_board_cell--col-reference"></div>
+        <ng-container *ngFor="let col of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]">
+          <div class="game_board_cell game_board_cell--col-reference">
+            {{ col }}
+          </div>
+        </ng-container>
+      </div>
+      <div *ngFor="let row of getBoard(); index as x" class="game_row">
+        <ng-container *ngFor="let cell of row; index as y">
+          <div
+            *ngIf="y === 0"
+            class="game_board_cell game_board_cell--col-reference"
+          >
+            {{ x | letter }}
+          </div>
+          <div
+            [ngClass]="['game_board_cell', 'game_board_cell--' + cell.state]"
+            (click)="fireShot(x, y)"
+          ></div>
+        </ng-container>
+      </div>
+    </section>
+
+    <section>
+      <div *ngIf="canPlay && gameboard && !isWinner">
+        <div>
+          <p>
+            🛳️ Ships:
+            <b>{{ gameboard.ships.length }}</b>
+          </p>
+          <p>
+            💀 Destroyed Ships:
+            <b>{{ shipsDestroyed }}</b>
+          </p>
+          <p>
+            🚀 Missiles Left:
+            <b>{{ shots < 0 ? 'Unlimited' : shots }}</b>
+          </p>
+        </div>
+
+        <hr />
+        <div>
+          <p>
+            <u>References:</u>
+          </p>
+          <p>
+            Destroyed Ship: 💀
+          </p>
+          <p>
+            Fail Shot: 🌊
+          </p>
+
+          <p>
+            Hit Shot: 💥
+          </p>
+        </div>
+      </div>
+      <hr />
+      <div *ngIf="isWinner">
+        <p>
+          🥳
+          <b>Congratulations, you Won!</b>
+          🥳
+        </p>
+      </div>
+      <div *ngIf="!canPlay">
+        <p class="game-over">Game Over</p>
+
+        <ion-button (click)="restart()" color="danger" expand="block">
+          Retry
+        </ion-button>
+        <hr />
+      </div>
+
+      <ion-button (click)="back()" expand="block">
+        Back
+      </ion-button>
+    </section>
+  </div>
 </ion-content>

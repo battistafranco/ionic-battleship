@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 1
+      Battleship Menu
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,9 +9,49 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
+      <ion-title size="large">Battleship Menu</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+  <ion-item class="form-control">
+    <ion-label position="floating">Enter Missiles quantity</ion-label>
+    <ion-input [formControl]="shots" value="100"></ion-input>
+  </ion-item>
+
+  <ion-button
+    color="success"
+    [disabled]="shots.invalid"
+    (click)="play()"
+    expand="block"
+  >
+    Let's Play!
+  </ion-button>
+
+  <p class="choose">Or Choose Difficulty</p>
+
+  <ion-button
+    color="primary"
+    (click)="selectDifficulty(DIFFICULTY_ENUM.EASY)"
+    expand="block"
+  >
+    Easy
+  </ion-button>
+  <ion-button
+    color="medium"
+    (click)="selectDifficulty(DIFFICULTY_ENUM.NORMAL)"
+    expand="block"
+  >
+    Normal
+  </ion-button>
+  <ion-button
+    color="danger"
+    (click)="selectDifficulty(DIFFICULTY_ENUM.HARD)"
+    expand="block"
+  >
+    Hard
+  </ion-button>
+
+  <p class="invalid-message" *ngIf="shots.invalid">
+    * Enter value greater than 20
+  </p>
 </ion-content>
